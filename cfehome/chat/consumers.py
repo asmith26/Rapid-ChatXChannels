@@ -1,3 +1,5 @@
+# c.f. views ("somewhere where a websocket communicates with channels")
+
 import asyncio
 import json
 from django.contrib.auth import get_user_model
