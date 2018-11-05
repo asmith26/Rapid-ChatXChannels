@@ -11,7 +11,16 @@ from .models import Thread, ChatMessage
 
 class ChatConsumer(AsyncConsumer):
     async def websocket_connect(self, event):
-        print("conntected", event)
+        print("connected", event)
+        await self.send({  # send response to websocket (wait for it to finish)
+            "type": "websocket.accept"
+        })
+
+        # await asyncio.sleep(10)
+        await self.send({
+            "type": "websocket.send",
+            "text": "Hello from Server"
+        })
 
     async def websocket_recieve(self, event):
         # when a message is recieved from the websocket
