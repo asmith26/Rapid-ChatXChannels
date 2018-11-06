@@ -24,14 +24,27 @@ class ChatConsumer(AsyncConsumer):
 
         # await asyncio.sleep(10)
 
-        await self.send({
-            "type": "websocket.send",
-            "text": "Hello from Server"
-        })
+        # await self.send({
+        #     "type": "websocket.send",
+        #     "text": "Hello from Server"
+        # })
 
     async def websocket_receive(self, event):
-        # when a message is recieved from the websocket
-        print("recieve", event)
+        # when a message is received from the websocket
+        # print("receive", event)
+        # event = {'type': 'websocket.receieve', 'text': '{"message": "abc"}'}
+
+        front_text = event.get("text", None)
+        if front_text is not None:
+            loaded_dict_data = json.loads(front_text)
+            msg = loaded_dict_data.get("message")
+            # print(msg)
+
+            await self.send({
+                "type": "websocket.send",
+                "text": msg
+            })
+
 
     async def websocket_disconnect(self, event):
         # when the socket connects
