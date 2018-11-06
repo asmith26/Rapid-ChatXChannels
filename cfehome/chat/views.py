@@ -36,6 +36,7 @@ class ThreadView(LoginRequiredMixin, FormMixin, DetailView):
         context['form'] = self.get_form()
         return context
 
+    # if the websocket does not open, we still want to be able to post data to the database (in the usual manner)
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return HttpResponseForbidden()

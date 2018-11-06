@@ -29,7 +29,7 @@ class ChatConsumer(AsyncConsumer):
             "text": "Hello from Server"
         })
 
-    async def websocket_recieve(self, event):
+    async def websocket_receive(self, event):
         # when a message is recieved from the websocket
         print("recieve", event)
 

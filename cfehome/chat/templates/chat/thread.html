@@ -23,12 +23,28 @@
 // websocket scripts
 var endpoint = "wss://" + window.location.host + window.location.pathname
 var socket = new WebSocket(endpoint)
+var formData = $("#form")
+var msgInput = $("#id_message")
 
 socket.onmessage = function(e){
     console.log("message", e)
 }
 socket.onopen = function(e){
     console.log("message", e)
+    formData.submit(function(event){
+        event.preventDefault()  // prevent submitting the form in the usual manner (i.e. with a page reload) if the websocket mechanism is working
+
+        var msgText = msgInput.val()
+        var finalData = {
+            "message": msgText
+        }
+
+        //socket.send(msgText)
+        socket.send(JSON.stringify(finalData))
+
+        //msgInput.val("") or:
+        formData[0].reset()
+    })
 }
 socket.onerror = function(e){
     console.log("message", e)
