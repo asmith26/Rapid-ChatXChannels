@@ -25,9 +25,14 @@ var endpoint = "wss://" + window.location.host + window.location.pathname
 var socket = new WebSocket(endpoint)
 var formData = $("#form")
 var msgInput = $("#id_message")
+var chatHolder = $("#chat-items")
 
 socket.onmessage = function(e){
     console.log("message", e)
+    console.log(e)
+    console.log(e.data)
+    chatHolder.append("<li>" + e.data + "</li>")
+
 }
 socket.onopen = function(e){
     console.log("message", e)
